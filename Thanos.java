@@ -1,3 +1,8 @@
+import java.util.Comparator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 public class Thanos {
 
     public static void main(String[] args) {
@@ -9,22 +14,35 @@ public class Thanos {
         Hero vision = new Hero("Vision", 3);
         Hero scarletWitch = new Hero("Scarlet Witch", 29);
         Hero doctorStrange = new Hero("Doctor Strange", 42);
-;
+        ;
         Flower lily = new Flower("Lily");
         Flower tulip = new Flower("Tulip");
         Flower begonia = new Flower("Begonia");
         Flower violet = new Flower("Violet");
         Flower rose = new Flower("Rose");
 
-        // TODO 1 : Create a TreeMap where :
-        // Hulk, Thor and Scarlet Witch have a Rose
-        // Vision has a Tulip
-        // Captain America has a Lily
-        // Doctor Strange and Black Widow have a Violet
+        Comparator<Hero> comparator = new Comparator<Hero>() {
+            @Override
+            public int compare(Hero orig, Hero compare) {
+                return orig.getName().compareTo(compare.getName());
+            }
+        };
 
-        // TODO 2 : Print if `begonia` is contained in the TreeMap
+        Map<Hero, Flower> favoriteFlowers = new TreeMap<>(comparator);
 
-        // TODO 3 : For each hero, alphabetically, print the corresponding flower
+        favoriteFlowers.put(hulk, rose);
+        favoriteFlowers.put(thor, rose);
+        favoriteFlowers.put(scarletWitch, rose);
+        favoriteFlowers.put(vision, tulip);
+        favoriteFlowers.put(captainAmerica, lily);
+        favoriteFlowers.put(doctorStrange, violet);
+        favoriteFlowers.put(blackWidow, violet);
 
+        System.out.println(favoriteFlowers.containsValue(begonia));
+
+        for (Hero hero: favoriteFlowers.keySet()) {
+            Flower flower = favoriteFlowers.get(hero);
+            System.out.println(flower.getName());
+        }
     }
 }
